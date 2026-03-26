@@ -5,7 +5,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
+/**
+ * Catalogo — Singleton que gestiona la colección de obras del museo.
+ *
+ * GRASP Information Expert : es el experto en la información de las obras.
+ */
 public class Catalogo {
      private static Catalogo instancia;
 

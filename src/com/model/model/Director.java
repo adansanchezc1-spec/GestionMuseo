@@ -78,3 +78,4 @@ public class Director extends Usuario {
             "3. Consultar valoración total del catálogo"
         ));
     }
+}
