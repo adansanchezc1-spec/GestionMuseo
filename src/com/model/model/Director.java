@@ -1,5 +1,6 @@
 package com.model.model;
 
+import com.model.enums.EstadoObra;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;

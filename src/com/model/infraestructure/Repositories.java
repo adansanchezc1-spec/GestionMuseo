@@ -1,6 +1,6 @@
 package com.model.infraestructure;
 
-import museo.domain.model.*;
+import com.model.model.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

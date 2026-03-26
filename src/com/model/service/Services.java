@@ -1,5 +1,10 @@
 package com.model.service;
 
+import com.model.infraestructure.ObraFactory;
+import com.model.infraestructure.RestauracionObservador;
+import com.model.infraestructure.Repositories.CesionRepository;
+import com.model.infraestructure.Repositories.MuseoColaboradorRepository;
+import com.model.infraestructure.Repositories.RestauracionRepository;
 import com.model.model.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,10 +18,12 @@ public final class Services {
     public static class CatalogoService {
 
         private final Catalogo                catalogo;
+        private final RestauracionRepository  restauracionRepo;
 
         public CatalogoService(Catalogo catalogo,
                                RestauracionRepository restauracionRepo) {
             this.catalogo         = catalogo;
+            this.restauracionRepo = restauracionRepo;
         }
 
         /**
@@ -34,7 +41,7 @@ public final class Services {
                                   RestauradorJefe restauradorJefe) {
             Obra obra = ObraFactory.crear(tipo, params);
             // GOF Observer: conectar restauración automática al Observer
-            obra.suscribir(new RestauracionObservador(restauradorJefe));
+            obra.suscribir(new RestauracionObservador(restauradorJefe, restauracionRepo));
             encargado.inscribirObra(obra, catalogo);
             return obra;
         }

@@ -2,7 +2,7 @@ package com.model.infraestructure;
 
 import java.time.LocalDate;
 
-import museo.domain.model.*;
+import com.model.model.*;
 
 /**
  * ObraFactory — Crea instancias de obras sin exponer las clases concretas al cliente.

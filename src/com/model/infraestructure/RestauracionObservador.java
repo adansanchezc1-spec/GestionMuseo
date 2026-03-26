@@ -1,10 +1,11 @@
+package com.model.infraestructure;
 
-import museo.domain.enums.EstadoObra;
-import museo.domain.interfaces.ObraObservador;
-import museo.domain.model.Obra;
-import museo.domain.model.Restauracion;
-import museo.domain.model.RestauradorJefe;
-import museo.infrastructure.repositories.Repositories.RestauracionRepository;
+import com.model.enums.EstadoObra;
+import com.model.interfaces.ObraObservador;
+import com.model.model.Obra;
+import com.model.model.Restauracion;
+import com.model.model.RestauradorJefe;
+import com.model.infraestructure.Repositories.RestauracionRepository;
 
 import java.time.LocalDate;
 

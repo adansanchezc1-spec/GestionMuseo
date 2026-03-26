@@ -2,6 +2,8 @@ package com.model.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import com.model.enums.EstadoObra;
+import com.model.interfaces.ObraObservador;
 public abstract class Obra {
 
     // ── Atributos ─────────────────────────────────────────────────────────────

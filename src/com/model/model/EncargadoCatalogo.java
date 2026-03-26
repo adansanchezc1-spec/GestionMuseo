@@ -1,10 +1,11 @@
 package com.model.model;
 
+import com.model.enums.EstadoObra;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class EncargadoCatalogo extends  {
+public class EncargadoCatalogo extends Usuario {
       public EncargadoCatalogo(String nombre) {
         super(nombre, "ENCARGADO_CATALOGO");
     }

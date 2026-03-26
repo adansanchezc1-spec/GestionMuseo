@@ -1,6 +1,6 @@
 package com.model.interfaces;
 import com.model.model.Obra;
-import com.model.model.EstadoObra;
+import com.model.enums.EstadoObra;
 /**
  * Interfaz para observar cambios de estado en una Obra.
  *
