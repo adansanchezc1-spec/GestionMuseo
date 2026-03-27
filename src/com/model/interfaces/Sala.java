@@ -1,7 +1,7 @@
 package com.model.interfaces;
 
-import java.util.List;
 import com.model.model.Obra;
+import java.util.List;
 /**
  * Interfaz Sala — Representa una sala del museo que contiene obras.
  *
