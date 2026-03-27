@@ -1,8 +1,7 @@
 package com.model.infraestructure;
 
-import java.time.LocalDate;
-
 import com.model.model.*;
+import java.time.LocalDate;
 
 /**
  * ObraFactory — Crea instancias de obras sin exponer las clases concretas al cliente.
@@ -54,35 +53,33 @@ public class ObraFactory {
 
         Obra obra = null;
         switch (tipo) {
-            case CUADRO:
+            case CUADRO -> {
                 if (esCadenaVacia(params.getTecnica())) {
                     throw new IllegalArgumentException(
-                        "Cuadro requiere 'tecnica' no vacía.");
+                            "Cuadro requiere 'tecnica' no vacía.");
                 }
                 if (esCadenaVacia(params.getEstilo())) {
                     throw new IllegalArgumentException(
-                        "Cuadro requiere 'estilo' no vacío.");
+                            "Cuadro requiere 'estilo' no vacío.");
                 }
                 obra = new Cuadro(
-                    nombre, autor, periodo, valor, fechaCreacion, fechaIngreso, sala,
-                    params.getTecnica().trim(), params.getEstilo().trim()
+                        nombre, autor, periodo, valor, fechaCreacion, fechaIngreso, sala,
+                        params.getTecnica().trim(), params.getEstilo().trim()
                 );
-                break;
-            case ESCULTURA:
+            }
+            case ESCULTURA -> {
                 if (esCadenaVacia(params.getMaterial())) {
                     throw new IllegalArgumentException(
-                        "Escultura requiere 'material' no vacío.");
+                            "Escultura requiere 'material' no vacío.");
                 }
                 obra = new Escultura(
-                    nombre, autor, periodo, valor, fechaCreacion, fechaIngreso, sala,
-                    params.getMaterial().trim()
+                        nombre, autor, periodo, valor, fechaCreacion, fechaIngreso, sala,
+                        params.getMaterial().trim()
                 );
-                break;
-            case OTRO_OBJETO:
-                obra = new OtroObjeto(
+            }
+            case OTRO_OBJETO -> obra = new OtroObjeto(
                     nombre, autor, periodo, valor, fechaCreacion, fechaIngreso, sala
                 );
-                break;
         }
         if (obra == null) {
             throw new IllegalStateException("Tipo no contemplado: " + tipo);

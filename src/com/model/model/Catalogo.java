@@ -31,10 +31,9 @@ public class Catalogo {
     private Catalogo() {}
 
     // ── Sala interface ────────────────────────────────────────────────────────
-    @Override
+    
     public String getNombre() { return nombre; }
 
-    @Override
     public List<Obra> getObras() {
         return Collections.unmodifiableList(listaObras);
     }
