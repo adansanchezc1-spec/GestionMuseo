@@ -1,4 +1,3 @@
-
 import com.model.enums.EstadoObra;
 import com.model.infraestructure.ObraFactory;
 import com.model.model.Catalogo;
@@ -59,57 +58,53 @@ public class ConsolaInteractiva {
     public void ejecutar() {
         println("=== MUSEO - MODO INTERACTIVO ===");
 
-        Usuario usuario = iniciarSesion();
-        if (usuario == null) {
-            println("Autenticación fallida varias veces. Se cierra la aplicación.");
-            return;
-        }
-
         while (true) {
-            println("\nUsuario: " + usuario.getNombre() + " (" + usuario.getRol() + ")");
-            println("--- Menú ---");
-            List<String> opciones = usuario.mostrarMenu();
-            for (int i = 0; i < opciones.size(); i++) {
-                println((i + 1) + ". " + opciones.get(i));
-            }
-            println("0. Salir");
+            Usuario usuario = iniciarSesion();
 
-            int opcion = leerEntero("Seleccione una opción", 0, opciones.size());
-            if (opcion == 0) {
-                println("Saliendo del modo interactivo. ¡Hasta luego!");
-                break;
-            }
+            while (true) {
+                println("\nRol: " + usuario.getRol());
+                println("--- Menú ---");
+                List<String> opciones = usuario.mostrarMenu();
+                for (int i = 0; i < opciones.size(); i++) {
+                    println((i + 1) + ". " + opciones.get(i));
+                }
+                println("0. Salir al menú principal");
 
-            try {
-                ejecutarOpcion(usuario, opcion);
-            } catch (Exception ex) {
-                println("Error: " + ex.getMessage());
+                int opcion = leerEntero("Seleccione una opción", 0, opciones.size());
+                if (opcion == 0) {
+                    break;
+                }
+
+                try {
+                    ejecutarOpcion(usuario, opcion);
+                } catch (Exception ex) {
+                    println("Error: " + ex.getMessage());
+                }
             }
         }
     }
 
     private Usuario iniciarSesion() {
         List<Usuario> usuarios = Arrays.asList(encargado, restaurador, visitante, director);
-        for (int intento = 1; intento <= 3; intento++) {
-            println("\nIntento " + intento + " de 3");
+        while (true) {
+            println("\nSeleccione un rol para iniciar sesión:");
             for (int i = 0; i < usuarios.size(); i++) {
                 Usuario u = usuarios.get(i);
-                println((i + 1) + ". " + u.getNombre() + " (" + u.getRol() + ")");
+                println((i + 1) + ". " + u.getRol());
             }
 
-            int seleccion = leerEntero("Seleccione usuario", 1, usuarios.size());
+            int seleccion = leerEntero("Seleccione rol", 1, usuarios.size());
             Usuario usuario = usuarios.get(seleccion - 1);
 
             String clave = leerLinea("Ingrese contraseña");
             try {
                 authSvc.autenticar(usuario, clave);
-                println("Bienvenido " + usuario.getNombre() + "!");
+                println("Autenticación exitosa. Rol: " + usuario.getRol());
                 return usuario;
             } catch (SecurityException se) {
                 println("Autenticación inválida: " + se.getMessage());
             }
         }
-        return null;
     }
 
     private void ejecutarOpcion(Usuario usuario, int opcion) {

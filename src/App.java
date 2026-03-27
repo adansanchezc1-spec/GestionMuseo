@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-
 import com.model.enums.EstadoObra;
 import com.model.infraestructure.ObraFactory.ObraParams;
 import com.model.infraestructure.ObraFactory.TipoObra;
@@ -19,6 +17,7 @@ import com.model.service.Services.AutenticacionService;
 import com.model.service.Services.CatalogoService;
 import com.model.service.Services.CesionService;
 import com.model.service.Services.RestauracionService;
+import java.time.LocalDate;
 
 public class App {
 
@@ -42,7 +41,45 @@ public class App {
         CesionService        cesionSvc        = new CesionService(director, cesionRepo, museoRepo);
         AutenticacionService authSvc          = new AutenticacionService();
 
-        if (args.length > 0 && ("-i".equals(args[0]) || "--interactivo".equalsIgnoreCase(args[0]))) {
+        // ── Inicializar catálogo con obras por defecto ──────────────────────
+        catalogoSvc.inscribirObra(
+            TipoObra.CUADRO,
+            ObraParams.builder()
+                .nombre("La Gioconda").autor("Leonardo da Vinci")
+                .periodo("Renacimiento").valorEconomico(900_000_000)
+                .fechaCreacion(LocalDate.of(1503, 1, 1))
+                .fechaIngresoMuseo(LocalDate.of(1797, 1, 1))
+                .sala("Sala A").tecnica("Óleo sobre tabla").estilo("Sfumato")
+                .build(),
+            encargado, restauradorJefe
+        );
+
+        catalogoSvc.inscribirObra(
+            TipoObra.ESCULTURA,
+            ObraParams.builder()
+                .nombre("Venus de Milo").autor("Alejandros de Antioquía")
+                .periodo("Helenismo").valorEconomico(500_000_000)
+                .fechaCreacion(LocalDate.of(-100, 1, 1))
+                .fechaIngresoMuseo(LocalDate.of(1821, 1, 1))
+                .sala("Sala B").material("Mármol")
+                .build(),
+            encargado, restauradorJefe
+        );
+
+        catalogoSvc.inscribirObra(
+            TipoObra.OTRO_OBJETO,
+            ObraParams.builder()
+                .nombre("Jarrón Han").autor("Desconocido")
+                .periodo("Dinastía Han").valorEconomico(2_500_000)
+                .fechaCreacion(LocalDate.of(100, 1, 1))
+                .fechaIngresoMuseo(LocalDate.of(1960, 6, 15))
+                .sala("Sala C")
+                .build(),
+            encargado, restauradorJefe
+        );
+
+        // Por defecto iniciar en modo interactivo, para elegir usuario y operación según rol.
+        if (args.length == 0 || "-i".equals(args[0]) || "--interactivo".equalsIgnoreCase(args[0])) {
             new ConsolaInteractiva(
                 catalogo, encargado, restauradorJefe, visitante, director,
                 catalogoSvc, restauracionSvc, cesionSvc, authSvc
@@ -50,7 +87,10 @@ public class App {
             return;
         }
 
-        sep("SISTEMA DE GESTIÓN DE MUSEO — Demo completa");
+        // Para ejecutar la demo completa con salida predefinida usar --demo.
+        if ("--demo".equalsIgnoreCase(args[0])) {
+            sep("SISTEMA DE GESTIÓN DE MUSEO — Demo completa");
+        }
 
         // ── 1. Autenticación ─────────────────────────────────────────────────
         titulo("1. Autenticación de usuarios");
@@ -162,6 +202,6 @@ public class App {
     }
 
     private static void titulo(String msg) {
-        System.out.println("\n▶ " + msg);
+        System.out.println("\n " + msg);
     }
 }
